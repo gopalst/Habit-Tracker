@@ -1,0 +1,72 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import Dashboard from "./pages/Dashboard";
+import ArchivedHabits from "./pages/ArchivedHabits";
+// import Register from "./pages/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./components/Navbar";
+
+import Admin from "./pages/Admin";
+import AddUser from "./pages/AddUser";
+import History from "./pages/History";
+import Bin from "./pages/Bin";
+import RequestAdmin from "./pages/RequestAdmin";
+
+export default function App() {
+    return (
+        <ThemeProvider>
+            <AuthProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/login" element={<Login />} />
+                        {/* <Route path="/register" element={<Register />} /> */}
+                        <Route path="/forgot-password" element={<ForgotPassword />} />
+                        <Route path="/" element={
+                            <ProtectedRoute>
+                                <Dashboard />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/dashboard" element={
+                            <ProtectedRoute>
+                                <Dashboard />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/archived" element={
+                            <ProtectedRoute>
+                                <ArchivedHabits />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/history" element={
+                            <ProtectedRoute>
+                                <History />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/admin" element={
+                            <ProtectedRoute>
+                                <Admin />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/admin/add-user" element={
+                            <ProtectedRoute>
+                                <AddUser />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/bin" element={
+                            <ProtectedRoute>
+                                <Bin />
+                            </ProtectedRoute>
+                        } />
+                        <Route path="/request-admin" element={
+                            <ProtectedRoute>
+                                <RequestAdmin />
+                            </ProtectedRoute>
+                        } />
+                    </Routes>
+                </BrowserRouter>
+            </AuthProvider>
+        </ThemeProvider>
+    );
+}
